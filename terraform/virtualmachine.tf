@@ -16,9 +16,21 @@ resource "aws_internet_gateway" "gw" {
 
 resource "aws_subnet" "wordpress_subnet_public" {
   vpc_id     = aws_vpc.wordpress_vpc.id
-  cidr_block = var.subnet_block
+  cidr_block = var.subnet_block_1
   map_public_ip_on_launch = true 
   availability_zone = "us-west-1a"
+}
+
+resource "aws_subnet" "wordpress_subnet_private_1" {
+  vpc_id     = aws_vpc.wordpress_vpc.id
+  cidr_block = var.subnet_block_2
+  availability_zone = "us-west-1a"
+}
+
+resource "aws_subnet" "wordpress_subnet_private_2" {
+  vpc_id     = aws_vpc.wordpress_vpc.id
+  cidr_block = var.subnet_block_3
+  availability_zone = "us-west-1c"
 }
 
 resource "aws_route_table" "wordpress_routetable" {
@@ -82,6 +94,26 @@ resource "aws_security_group" "for_lb" {
   }
 }
 
+resource "aws_security_group" "for_db" {
+  name        = "for-db"
+  description = "Allow db port from all world"
+  vpc_id      = aws_vpc.wordpress_vpc.id
+
+  ingress {
+    description      = "msyql"
+    from_port        = 3306
+    to_port          = 3306
+    protocol         = "tcp"
+    cidr_blocks      = var.all_ips
+  }
+  egress {
+    from_port        = 0
+    to_port          = 0
+    protocol         = "-1"
+    cidr_blocks      = var.all_ips
+  }
+}
+
 resource "aws_elb" "wordpress_lb" {
   name            = "wordpress-lb"
   subnets         = [aws_subnet.wordpress_subnet_public.id]
@@ -122,4 +154,16 @@ resource "aws_autoscaling_group" "wordpress_asg" {
 resource "aws_autoscaling_attachment" "wordpress_attach" {
   autoscaling_group_name = aws_autoscaling_group.wordpress_asg.id
   elb                    = aws_elb.wordpress_lb.id
+}
+
+module "rds" {
+  source = "./modules/rds"
+
+  storage = var.storage
+  db_instance_type = var.db_instance_type
+  dbname = var.dbname
+  username = var.username
+  password = var.password
+  subnet_db = [aws_subnet.wordpress_subnet_private_1.id, aws_subnet.wordpress_subnet_private_2.id]
+  security_group_db = [aws_security_group.for_db.id]
 }

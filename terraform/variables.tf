@@ -3,7 +3,15 @@ variable "vpc_block" {
   description = "Ip address range for vpc"
 }
 
-variable "subnet_block" {
+variable "subnet_block_1" {
+  type        = string
+  description = "Ip address range for subnet"
+}
+variable "subnet_block_2" {
+  type        = string
+  description = "Ip address range for subnet"
+}
+variable "subnet_block_3" {
   type        = string
   description = "Ip address range for subnet"
 }
@@ -40,4 +48,24 @@ variable "max_size" {
 variable "key_wordpress_name" {
   type = string
   description = "Key name"
+}
+variable "dbname" {
+  type = string
+  description = "Database name"
+}
+variable "username" {
+  type = string
+  description = "Database username"
+}
+variable "password" {
+  type = string
+  description = "Database password"
+}
+variable "db_instance_type" {
+  type = string
+  description = "Database instance compute size"
+}
+variable "storage" {
+  type = string
+  description = "Database size"
 }
