@@ -1,7 +1,5 @@
 provider "aws" {
   region = "us-west-1"
-  access_key = "AKIA2UWAFFRTP4S4SQJ4"
-  secret_key = "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"
 }
 
 resource "aws_vpc" "wordpress_vpc" {
