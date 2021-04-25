@@ -1,0 +1,31 @@
+---
+# tasks file for nginx
+
+  - name: Install nginx and other dependencies
+    apt:
+      name:
+        - nginx
+        - php7.2-fpm
+        - php-mysql
+      update_cache: yes
+      cache_valid_time: 3600
+      state: present
+    become: yes
+  - name: 'Send configuration file'
+    template:
+      src: "{{ wordpress_config_path }}"
+      dest: "{{ nginx_sites_available }}"
+    become: yes
+  - name: 'remove default nginx config'
+    file:
+      path: "{{ nginx_default_path }}"
+      state: absent
+    become: yes
+  - name: 'create link'
+    become: yes
+    file:
+      src: "{{ nginx_sites_available }}"
+      dest: "{{ nginx_sites_enabled }}"
+      state: link
+    notify:
+      - restart nginx

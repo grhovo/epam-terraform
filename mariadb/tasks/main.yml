@@ -1,0 +1,51 @@
+---
+# tasks file for mariadb
+
+  - name: Install all required packages
+    apt: 
+      name:
+        - python3
+        - mariadb-server
+        - python3-pip
+        - mariadb-client
+      update_cache: yes
+      cache_valid_time: 3600
+      state: present
+    become: yes
+  - name: Start the MySQL service
+    become: yes
+    service: 
+      name: mariadb 
+      state: started
+      enabled: true
+  - name: "Install pymysql module"
+    become: yes
+    pip:
+      name: pymysql
+  - name: update mysql root password for all root accounts
+    become: yes
+    mysql_user: 
+      name: "{{ mysql_root_user }}" 
+      password: "{{ mysql_root_password }}"
+      login_user: "{{ mysql_root_user }}"
+      login_password: "{{ mysql_root_password }}"
+      check_implicit_admin: yes
+      priv: "*.*:ALL,GRANT"
+      login_unix_socket: "{{ mysql_socket }}"
+  - name: 'create mysql user'
+    mysql_user:
+      name: '{{ db_username }}'
+      password: '{{ db_user_pass }}'
+      priv: '*.*:ALL'
+      login_user: "{{ mysql_root_user }}"
+      login_password: "{{ mysql_root_password }}"
+      login_unix_socket: "{{ mysql_socket }}"
+    become: yes
+  - name: 'create mysql db'
+    mysql_db:
+      name: '{{ db_name }}'
+      state: present
+      login_user: "{{ mysql_root_user }}"
+      login_password: "{{ mysql_root_password }}"
+      login_unix_socket: "{{ mysql_socket }}"
+    become: yes  

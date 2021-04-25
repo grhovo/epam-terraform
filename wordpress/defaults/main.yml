@@ -1,0 +1,6 @@
+---
+# defaults file for wordpress
+wordpress_remote_site_path: https://wordpress.org/latest.tar.gz 
+wordpress_local_site_path: /tmp/wordpress.tar.gz
+nginx_www: /var/www
+wordpress_php_remote: /var/www/wordpress

@@ -1,0 +1,6 @@
+---
+# vars file for wordpress
+ansible_sudo_pass: 19981120
+db_name: wordpress_db
+db_username: wordpress_user
+db_user_pass: my_password

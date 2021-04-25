@@ -1,0 +1,8 @@
+---
+# vars file for mariadb
+ansible_sudo_pass: 19981120
+mysql_root_user: root
+mysql_root_password: 19981120
+db_name: wordpress_db
+db_username: wordpress_user
+db_user_pass: my_password

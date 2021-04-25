@@ -1,0 +1,8 @@
+resource_group_name         = "epam_wordpress_rg"
+resource_group_location     = "West Europe"
+virtual_network_name        = "epam_wordpress_vnet"
+subnet_name                 = "epam_wordpress_snet"
+public_ip_name              = "epam_wordpress_pip"
+network_security_group_name = "epam_wordpress_sng"
+network_interface_name      = "epam_wordpress_nic"
+linux_virtual_machine_name  = "epam_wordpress_vm"
