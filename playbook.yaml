@@ -1,6 +1,5 @@
 - hosts: ubuntu
   roles:
-    - mariadb
     - nginx
     - wordpress
 

@@ -1,39 +1,14 @@
-variable "resource_group_name" {
+variable "cidr_block" {
   type        = string
-  description = "RG name in Azure"
+  description = "Ip address range for vpc"
 }
 
-variable "resource_group_location" {
+variable "subnet_block" {
   type        = string
-  description = "RG location in Azure"
+  description = "Ip address range for subnet"
 }
 
-variable "virtual_network_name" {
+variable "all_ips" {
   type        = string
-  description = "VNET name in Azure"
-}
-
-variable "subnet_name" {
-  type        = string
-  description = "Subnet name in Azure"
-}
-
-variable "public_ip_name" {
-  type        = string
-  description = "Public IP name in Azure"
-}
-
-variable "network_security_group_name" {
-  type        = string
-  description = "NSG name in Azure"
-}
-
-variable "network_interface_name" {
-  type        = string
-  description = "NIC name in Azure"
-}
-
-variable "linux_virtual_machine_name" {
-  type        = string
-  description = "Linux VM name in Azure"
+  description = "all IP addreses"
 }
