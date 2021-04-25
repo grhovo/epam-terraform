@@ -2,3 +2,4 @@ terraform/.terraform*
 terraform/hosts
 terraform/terraform.tfs*
 terraform/wordrpess_key*
+wordpress_key*
