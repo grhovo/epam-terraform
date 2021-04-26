@@ -150,9 +150,6 @@ resource "aws_launch_template" "wordpress_lt" {
   instance_type          = var.instance_type
   vpc_security_group_ids = [aws_security_group.for_instance.id]
   key_name               = var.key_wordpress_name
-  network_interfaces {
-    associate_public_ip_address = true
-  }
   tags = {
     Type  = "web"
     Owner = "wordpress"
@@ -180,6 +177,9 @@ resource "aws_autoscaling_group" "wordpress_asg" {
     value               = "wordpress"
     propagate_at_launch = true
   }
+  provisioner "local-exec" {
+    command = "ansible-playbook -i ../ec2.py ../playbook.yaml"
+  }
 }
 
 module "rds" {
@@ -194,8 +194,11 @@ module "rds" {
   security_group_db = [aws_security_group.for_db.id]
 }
 
-resource "null_resource" "ansible_auto" {
+/*resource "null_resource" "ansible_auto" {
   provisioner "local-exec" {
     command = "ansible-playbook -i ../ec2.py ../playbook.yaml"
   }
-}
+  depends_on [
+    aws_autoscaling_group.wordpress_asg
+  ]
+}*/
