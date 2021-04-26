@@ -1,3 +1,0 @@
----
-# defaults file for mariadb
-mysql_socket: /var/run/mysqld/mysqld.sock

@@ -32,40 +32,40 @@ variable "instance_type" {
 }
 
 variable "desired_capacity" {
-  type = number
+  type        = number
   description = "Desired capacity of asg"
 }
 
 variable "min_size" {
-  type = number
+  type        = number
   description = "Minimum capacity of asg"
 }
 
 variable "max_size" {
-  type = number
+  type        = number
   description = "Maximum capacity of asg"
 }
 variable "key_wordpress_name" {
-  type = string
+  type        = string
   description = "Key name"
 }
 variable "dbname" {
-  type = string
+  type        = string
   description = "Database name"
 }
 variable "username" {
-  type = string
+  type        = string
   description = "Database username"
 }
 variable "password" {
-  type = string
+  type        = string
   description = "Database password"
 }
 variable "db_instance_type" {
-  type = string
+  type        = string
   description = "Database instance compute size"
 }
 variable "storage" {
-  type = string
+  type        = string
   description = "Database size"
 }

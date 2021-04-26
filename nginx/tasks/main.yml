@@ -5,7 +5,7 @@
     apt:
       name:
         - nginx
-        - php7.2-fpm
+        - php-fpm
         - php-mysql
       update_cache: yes
       cache_valid_time: 3600
