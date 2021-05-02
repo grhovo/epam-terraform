@@ -141,7 +141,7 @@ resource "aws_elb" "wordpress_lb" {
 }
 resource "aws_key_pair" "wordpress_key" {
   key_name   = var.key_wordpress_name
-  public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDtCgutm0RsrEJ/3RUBfoLESUU7NC+CTDDY1YFcwQQBroT9H4OM98K9tYVOXxtZUkAjHOurPjwyY2FMKDhtTzezzY/CRZw4ShZRsCmn+O0A46sLt/Yrsn4hxyXYWqMDPu0QOh6eUhi0iEGaoQT3dr0uu266oDB0/RqIpPyA6Havmv9NiBmq3n5uRtJb5FdBgvyvQbY6Y074Icooh0c7ZY1s8+yZ4mI6oo4xfmZpGOjCZ4t57uuiOo5pXcpPlV1NTRflpdYKwlvscK6f8LoQ9qkql780uL5HO8lLySRzwKPvf/oZSuS/YinQf275A4x59tGbmJORsO7WPaFi72mfn/ie4eMwC4KytesyIaBkegwFJaVHeFEsxOO932npk9HUnUGooysmjVmfKscWB8L2vV45WD4McXv4E+JQqbh3iNjDxmoY2lGh2k9uXY3WXQ94slN1VvU2H46KAopgdaakiGv19ghzofQdb3tDwSZy78mEKbdZvCt2PKjt9/inYA7UP8k= hovo@ubuntu"
+  public_key = var.wordpress_pub_key
 }
 
 resource "aws_launch_template" "wordpress_lt" {
@@ -194,11 +194,3 @@ module "rds" {
   security_group_db = [aws_security_group.for_db.id]
 }
 
-/*resource "null_resource" "ansible_auto" {
-  provisioner "local-exec" {
-    command = "ansible-playbook -i ../ec2.py ../playbook.yaml"
-  }
-  depends_on [
-    aws_autoscaling_group.wordpress_asg
-  ]
-}*/

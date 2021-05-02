@@ -69,3 +69,7 @@ variable "storage" {
   type        = string
   description = "Database size"
 }
+variable "wordpress_pub_key" {
+  type = string
+  description = "Public key for remote connection"
+}
