@@ -3,6 +3,8 @@ pipeline {
     
     environment {
         private_key = 'terraform-key-wordpress'
+	aws-access = 'aws-access-key'
+	aws-secret = 'aws-secret-key'
     }
 
     stages {
@@ -15,11 +17,16 @@ pipeline {
         }
         stage('Create private key file for ansible'){
             steps {
-                awsIdentity()
 		sh "echo $private_key > wordpress_key"
                 sh "chmod 600 wordpress_key"            
             }
         }
+	stage('AWS login'){
+		steps {
+			sh "export AWS_ACCESS_KEY_ID=$aws-access"
+			sh "export AWS_SECRET_ACCESS_KEY=$aws-secret"
+		}
+	}
         stage('Terraform init'){
            steps {
                 dir('terraform') {
