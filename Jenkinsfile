@@ -17,15 +17,15 @@ pipeline {
         }
         stage('Create private key file for ansible'){
             steps {
-		    sh "echo ${private_key} > wordpress_key"
+		    sh "echo ${params.private_key} > wordpress_key"
 		    sh "cat wordpress_key"
                 sh "chmod 600 wordpress_key"            
             }
         }
 	stage('AWS login'){
 		steps {
-			sh "export AWS_ACCESS_KEY_ID=${aws_access}"
-			sh "export AWS_SECRET_ACCESS_KEY=${aws_secret}"
+			sh "export AWS_ACCESS_KEY_ID=${params.aws_access}"
+			sh "export AWS_SECRET_ACCESS_KEY=${params.aws_secret}"
 		}
 	}
         stage('Terraform init'){
