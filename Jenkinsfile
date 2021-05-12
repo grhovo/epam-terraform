@@ -19,6 +19,7 @@ pipeline {
             steps {
 		    sh "echo ${private_key} > wordpress_key"
 		    sh "cat wordpress_key"
+		    sh "pwd"
                 sh "chmod 600 wordpress_key"            
             }
         }
