@@ -9,7 +9,7 @@ pipeline {
         stage('Pull code from repo') {
             steps {
                 //git config
-                git credentialsId: git_credential, url: 'https://github.com/grhovo/epam-terraform.git'
+                git credentialsId: git-credential, url: 'https://github.com/grhovo/epam-terraform.git'
                 
             }
         }
