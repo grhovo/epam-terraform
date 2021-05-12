@@ -3,8 +3,8 @@ pipeline {
     
     environment {
         private_key = credentials('terraform-key-wordpress')
-	aws_access = credentials('aws-access-key')
-	aws_secret = credentials('aws-secret-key')
+	AWS_ACCESS_KEY_ID = credentials('aws-access-key')
+	AWS_SECRET_ACCESS_KEY = credentials('aws-secret-key')
     }
 
     stages {
@@ -32,8 +32,6 @@ pipeline {
 	    stage('Terraform apply'){
 		    steps {
 			    dir('terraform') {
-				    sh "export AWS_ACCESS_KEY_ID=${aws_access}"
-				    sh "export AWS_SECRET_ACCESS_KEY=${aws_secret}"
 				    sh 'terraform apply -auto-approve'
 			    }
 		    }
