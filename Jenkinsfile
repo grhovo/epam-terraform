@@ -8,16 +8,14 @@ pipeline {
     }
 
     stages {
-        stage('Pull code from repo') {
+        stage('Install boto for dynamic inventory') {
             steps {
-                //git config
-                checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[credentialsId: 'git-credential', url: 'https://github.com/grhovo/epam-terraform.git']]])
-                
+               sh 'pip install boto'                
             }
         }
         stage('Create private key file for ansible'){
             steps {
-		    sh "echo ${private_key} > wordpress_key"
+	        sh "echo ${private_key} > wordpress_key"
                 sh "chmod 600 wordpress_key"            
             }
         }
