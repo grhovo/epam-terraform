@@ -18,6 +18,7 @@ pipeline {
         stage('Create private key file for ansible'){
             steps {
 		    sh "echo ${private_key} > wordpress_key"
+		    sh "cat wordpress_key"
                 sh "chmod 600 wordpress_key"            
             }
         }
