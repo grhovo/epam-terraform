@@ -16,6 +16,7 @@ pipeline {
         stage('Create private key file for ansible'){
             steps {
                 awsIdentity()
+		sh "echo $private_key"
                 writeFile file: wordpress_key, text: private_key, perms='600'               
             }
         }
