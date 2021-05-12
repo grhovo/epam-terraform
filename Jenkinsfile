@@ -18,29 +18,23 @@ pipeline {
         stage('Create private key file for ansible'){
             steps {
 		    sh "echo ${private_key} > wordpress_key"
-		    sh "cat wordpress_key"
-		    sh "pwd"
                 sh "chmod 600 wordpress_key"            
             }
         }
-	stage('AWS login'){
-		steps {
-			sh "export AWS_ACCESS_KEY_ID=${aws_access}"
-			sh "export AWS_SECRET_ACCESS_KEY=${aws_secret}"
-		}
-	}
         stage('Terraform init'){
            steps {
                 dir('terraform') {
                     sh 'terraform init'
+			
                 }
 	}       
         }
 	    stage('Terraform apply'){
 		    steps {
 			    dir('terraform') {
-				    sh 'terraform plan -out=tfplan -input=false'
-				    sh 'terraform apply -input=false tfplan'
+				    sh "export AWS_ACCESS_KEY_ID=${aws_access}"
+				    sh "export AWS_SECRET_ACCESS_KEY=${aws_secret}"
+				    sh 'terraform apply -auto-approve'
 			    }
 		    }
 	    }
