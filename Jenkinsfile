@@ -2,7 +2,6 @@ pipeline {
     agent any
     
     environment {
-        private_key = credentials('terraform-key-wordpress')
 	AWS_ACCESS_KEY_ID = credentials('aws-access-key')
 	AWS_SECRET_ACCESS_KEY = credentials('aws-secret-key')
     }
@@ -15,8 +14,10 @@ pipeline {
         }
         stage('Create private key file for ansible'){
             steps {
-	        sh "echo ${private_key} > wordpress_key"
-                sh "chmod 600 wordpress_key"            
+		withCredentials([file(credentialsId: 'terraform-wordpress-key', variable: 'key_file')]) {
+	        sh "echo ${key_file} > wordpress_key"
+                sh "chmod 600 wordpress_key"  
+   		    }
             }
         }
         stage('Terraform init'){
@@ -27,13 +28,13 @@ pipeline {
                 }
 	}       
         }
-	    stage('Terraform apply'){
-		    steps {
-			    dir('terraform') {
-				    sh 'terraform apply -auto-approve'
-			    }
-		    }
-	    }
+//	    stage('Terraform apply'){
+//		    steps {
+//			    dir('terraform') {
+//				    sh 'terraform apply -auto-approve'
+//			    }
+//		    }
+//	    }
  
     }
    
