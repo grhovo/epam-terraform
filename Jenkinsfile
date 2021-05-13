@@ -28,13 +28,13 @@ pipeline {
                 }
 	}       
         }
-//	    stage('Terraform apply'){
-//		    steps {
-//			    dir('terraform') {
-//				    sh 'terraform apply -auto-approve'
-//			    }
-//		    }
-//	    }
+	    stage('Terraform apply'){
+		    steps {
+			    dir('terraform') {
+				    sh 'terraform apply -auto-approve'
+			    }
+		    }
+	    }
  
     }
    
