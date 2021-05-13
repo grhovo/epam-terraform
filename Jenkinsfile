@@ -15,7 +15,7 @@ pipeline {
         stage('Create private key file for ansible'){
             steps {
 		withCredentials([file(credentialsId: 'terraform-wordpress-key', variable: 'key_file')]) {
-	        sh "echo ${key_file} > wordpress_key"
+	        sh "cp ${key_file} wordpress_key"
                 sh "chmod 600 wordpress_key"  
    		    }
             }
